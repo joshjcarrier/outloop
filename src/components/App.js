@@ -18,7 +18,7 @@ var auth = new ClientOAuth2({
 class App extends Component {
   renderLogin() {
     const component = this;
-    auth.code.getToken('https://joshjcarrier.github.io/outloop' + this.props.location.pathname)
+    auth.code.getToken(auth.code.getUri() + this.props.location.search)
       .then(function (user) {
         localStorage.setItem('YAMMER_AUTH_TOKEN', user['access_token']['token']);
         component.props.history.push(`/`);

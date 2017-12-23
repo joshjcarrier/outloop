@@ -11,12 +11,17 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { BrowserRouter } from 'react-router-dom'
 
+// local development DO NOT COMMIT REAL OVERRIDES
+// localStorage.setItem('YAMMER_AUTH_TOKEN', 'BEARER_TOKEN');
+
 // 2
 const httpLink = new HttpLink({ uri: 'https://www.yammer.com/graphql' });
 const middlewareLink = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem('YAMMER_AUTH_TOKEN');
+  const authorizationHeader = token ? `Bearer ${token}` : null
   operation.setContext({
     headers: {
-      authorization: "Bearer BEARER_TOKEN"
+      authorization: authorizationHeader
     }
   });
   return forward(operation)
