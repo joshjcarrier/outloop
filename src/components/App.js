@@ -5,9 +5,37 @@ import { withRouter } from 'react-router';
 // import AllTileFeed from './AllTileFeed';
 import DiscoveryTileFeed from './DiscoveryTileFeed';
 import TileFeed from './TileFeed';
+import ClientOAuth2 from 'client-oauth2';
+
+var auth = new ClientOAuth2({
+  clientId: '5hFM4jak52LokZ8aVbbQ',
+  clientSecret: '29sjksBRw0oIXi2A3cFmGPPkzGsDGvbCjTudIdSxs',
+  accessTokenUri: 'https://www.yammer.com/oauth2/access_token.json',
+  authorizationUri: 'https://www.yammer.com/oauth2/authorize',
+  redirectUri: 'https://joshjcarrier.github.io/outloop/'
+})
 
 class App extends Component {
+  renderLogin() {
+    const component = this;
+    auth.code.getToken('https://joshjcarrier.github.io/outloop' + this.props.location.pathname)
+      .then(function (user) {
+        localStorage.setItem('YAMMER_AUTH_TOKEN', user['access_token']['token']);
+        component.props.history.push(`/`);
+      }).catch(function (e) {
+        window.location.replace(auth.code.getUri());
+      });
+
+    return (<div>Logging in...</div>);
+  }
+
   render() {
+    const isAuthenticated = localStorage.getItem("YAMMER_AUTH_TOKEN") != null;
+
+    if (!isAuthenticated) {
+      return this.renderLogin();
+    }
+
     return (
       <div className='center w100'>
         <div className='vh-100 fl w-25 pa2 white' style={{ backgroundColor: '#343A41' }}>
@@ -32,7 +60,7 @@ class App extends Component {
           </Switch>
         </div>
       </div>
-    )
+    );
   }
 }
 
