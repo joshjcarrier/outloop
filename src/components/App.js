@@ -41,7 +41,7 @@ class App extends Component {
         </div>
         <div className='fl w-75 pa4 black'>
           <Switch>
-            <Route exact path='/'>
+            <Route exact path={`${process.env.PUBLIC_URL}/`}>
               <div>
                 <nav className="pa3 pa4-ns">
                   <a className="link dim black b f6 f5-ns dib mr3 ttu tracked" href="/" title="Home">Communities</a>
@@ -52,7 +52,7 @@ class App extends Component {
                 <DiscoveryTileFeed />
               </div>
             </Route>
-            <Route path='/group/:id' component={TileFeed} />
+            <Route path={`${process.env.PUBLIC_URL}/group/:id`} component={TileFeed} />
             {/* <Route exact path='/' component={LinkList} /> */}
             {/* <Route exact path='/create' component={CreateLink}/> */}
           </Switch>
