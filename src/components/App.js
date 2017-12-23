@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 import DiscoveryTileFeed from './DiscoveryTileFeed';
 import TileFeed from './TileFeed';
 import ClientOAuth2 from 'client-oauth2';
+import QueryString from 'query-string';
 
 var auth = new ClientOAuth2({
   clientId: '5hFM4jak52LokZ8aVbbQ',
@@ -18,10 +19,13 @@ class App extends Component {
   componentDidMount() {
     const self = this;
     const isAuthenticated = localStorage.getItem("YAMMER_AUTH_TOKEN") != null;
-    const codeMatch = this.props.location.search.match("code");
+    const url = this.props.location.search;
+    const parsed = QueryString.parse(this.props.location.search);
+    const code = parsed['code'];
     if (!isAuthenticated) {
-      if (codeMatch) {
-        auth.code.getToken(this.props.location.search, { query: { client_id: '5hFM4jak52LokZ8aVbbQ', client_secret: '29sjksBRw0oIXi2A3cFmGPPkzGsDGvbCjTudIdSxs', code: codeMatch[0] } })
+      debugger
+      if (code) {
+        auth.code.getToken(url, { query: { client_id: '5hFM4jak52LokZ8aVbbQ', client_secret: '29sjksBRw0oIXi2A3cFmGPPkzGsDGvbCjTudIdSxs', code: code } })
           .then(function (user) {
             localStorage.setItem('YAMMER_AUTH_TOKEN', user['access_token']['token']);
             self.props.history.push(`/`);
