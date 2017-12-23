@@ -5,38 +5,20 @@ import { withRouter } from 'react-router';
 // import AllTileFeed from './AllTileFeed';
 import DiscoveryTileFeed from './DiscoveryTileFeed';
 import TileFeed from './TileFeed';
-import ClientOAuth2 from 'client-oauth2';
 import QueryString from 'query-string';
-
-var auth = new ClientOAuth2({
-  clientId: '5hFM4jak52LokZ8aVbbQ',
-  accessTokenUri: 'https://www.yammer.com/oauth2/access_token.json',
-  authorizationUri: 'https://www.yammer.com/oauth2/authorize',
-  redirectUri: 'https://joshjcarrier.github.io/outloop/'
-})
 
 class App extends Component {
   componentDidMount() {
-    const self = this;
+    const parsed = QueryString.parse(this.props.location.hash) || {};
+    const accessToken = parsed['access_token'];
+
+    if (accessToken) {
+      localStorage.setItem('YAMMER_AUTH_TOKEN', accessToken);
+    }
+
     const isAuthenticated = localStorage.getItem("YAMMER_AUTH_TOKEN") != null;
-    const url = this.props.location.search;
-    const parsed = QueryString.parse(this.props.location.search);
-    const code = parsed['code'];
     if (!isAuthenticated) {
-      debugger
-      if (code) {
-        auth.code.getToken(url, { query: { client_id: '5hFM4jak52LokZ8aVbbQ', client_secret: '29sjksBRw0oIXi2A3cFmGPPkzGsDGvbCjTudIdSxs', code: code } })
-          .then(function (user) {
-            const accessToken = JSON.parse(user.accessToken);
-            localStorage.setItem('YAMMER_AUTH_TOKEN', accessToken['token']);
-            self.props.history.push(`/`);
-          }).catch(function (e) {
-            window.location.replace(auth.code.getUri());
-          });
-      }
-      else {
-        window.location.replace(auth.code.getUri());
-      }
+      window.location.replace('https://www.yammer.com/dialog/oauth?client_id=5hFM4jak52LokZ8aVbbQ&response_type=token');
     }
   }
 
