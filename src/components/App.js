@@ -27,7 +27,8 @@ class App extends Component {
       if (code) {
         auth.code.getToken(url, { query: { client_id: '5hFM4jak52LokZ8aVbbQ', client_secret: '29sjksBRw0oIXi2A3cFmGPPkzGsDGvbCjTudIdSxs', code: code } })
           .then(function (user) {
-            localStorage.setItem('YAMMER_AUTH_TOKEN', user['access_token']['token']);
+            const accessToken = JSON.parse(user.accessToken);
+            localStorage.setItem('YAMMER_AUTH_TOKEN', accessToken['token']);
             self.props.history.push(`/`);
           }).catch(function (e) {
             window.location.replace(auth.code.getUri());
