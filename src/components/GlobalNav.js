@@ -27,7 +27,7 @@ class GlobalNav extends Component {
           <div className='fl w-25 pa2'>
             <img
               src={viewer.avatar}
-              className='br-100 h3 w3 dib' />
+              className='br-100 h3 w3 dib' alt='Avatar' />
           </div>
           <div className='fl w-50 pa2'>
             <div className='b'>
@@ -42,9 +42,9 @@ class GlobalNav extends Component {
         </div>
 
         <ul class="list pl0 measure center">
-          <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30 b">🏠 Discovery</li>
+          <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30 b"><span role='img' aria-label='discovery'>🏠</span> Discovery</li>
           <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30 b">✉ Inbox</li>
-          <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30 b">🌐 Communities</li>
+          <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30 b"><span role='img' aria-label='communities'>🌐</span> Communities</li>
         </ul>
         <GroupNavLinkList links={linksToRender} />
 

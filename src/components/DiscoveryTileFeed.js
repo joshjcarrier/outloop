@@ -26,7 +26,7 @@ class DiscoveryTileFeed extends Component {
                 <div className='fl w-40 pa2'>
                   <img
                     src={threadEdge.node.threadStarter.sender.avatar}
-                    className='br-100 h3 w3 dib' />
+                    className='br-100 h3 w3 dib' alt='Avatar' />
                 </div>
                 <div className='fl w-60 pa2'>
                   <div className='b'>

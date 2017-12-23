@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import GlobalNav from './GlobalNav';
-import Header from './Header';
 import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 // import AllTileFeed from './AllTileFeed';
@@ -19,9 +18,9 @@ class App extends Component {
             <Route exact path='/'>
               <div>
                 <nav className="pa3 pa4-ns">
-                  <a className="link dim black b f6 f5-ns dib mr3 ttu tracked" href="#" title="Home">Communities</a>
-                  <a className="link dim gray    f6 f5-ns dib mr3 ttu tracked" href="#" title="Home">Departments</a>
-                  <a className="link dim gray    f6 f5-ns dib mr3 ttu tracked" href="#" title="About">Projects</a>
+                  <a className="link dim black b f6 f5-ns dib mr3 ttu tracked" href="/" title="Home">Communities</a>
+                  <a className="link dim gray    f6 f5-ns dib mr3 ttu tracked" href="/" title="Home">Departments</a>
+                  <a className="link dim gray    f6 f5-ns dib mr3 ttu tracked" href="/" title="About">Projects</a>
                 </nav>
                 <h1 className='f2 lh-copy'>Communities</h1>
                 <DiscoveryTileFeed />
