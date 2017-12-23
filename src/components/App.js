@@ -14,6 +14,7 @@ class App extends Component {
 
     if (accessToken) {
       localStorage.setItem('YAMMER_AUTH_TOKEN', accessToken);
+      this.props.history.push(`/`);
     }
 
     const isAuthenticated = localStorage.getItem("YAMMER_AUTH_TOKEN") != null;
