@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 // import truncate from 'truncate';
 import GroupFeed from './GroupFeed';
+import UserCompactCard from './UserCompactCard';
 import Skeleton from 'react-loading-skeleton';
 
 class Group extends Component {
@@ -30,7 +31,7 @@ class Group extends Component {
 
           <nav className='flex flex-column pt4'>
             <Link to={`${process.env.PUBLIC_URL}/`}
-              className='w-100 f5 black-80 helvetica no-underline dib pl3 pv2 bg-light-blue'
+              className='w-100 f5 black-80 helvetica no-underline dib pl2 pv2 bg-light-blue'
               style={group ? { backgroundColor: group.color + "88" } : {}}
               activeClassName='bg-white-30'>
               <span className='ph2 helvetica'>
@@ -40,18 +41,31 @@ class Group extends Component {
           </nav>
 
           <nav className='flex flex-column pt3 bt b--light-gray mt4'>
-            <div className='w-100 f5 black-80 helvetica dib pl3 pv2'>
+            <div className='w-100 f5 black-80 helvetica dib pa2'>
               <span className='ph2 helvetica'>
                 Experts
               </span>
             </div>
-            {group ? group.members.edges.map(memberEdge => (
-              <div className='w-100 f6 black-80 helvetica dib pl3 pv2'>
-                <span className='ph2 helvetica truncate'>
-                  {memberEdge.node.displayName}
-                </span>
-              </div>
-            )) : null}
+            {group ? group.members.edges.map(memberEdge => {
+              var user = memberEdge.node;
+              const statusLocator = memberEdge.node.displayName.match(/[(](.*)[)][ ]{0,1}/i);
+              var statusMessage = null;
+              if (statusLocator) {
+                user = {
+                  avatar: user.avatar,
+                  displayName: memberEdge.node.displayName.replace(statusLocator[0], '')
+                };
+                statusMessage = statusLocator[1];
+              }
+
+              return (
+                <div className='w-100 dib pl3 pr2'>
+                  <UserCompactCard className='pv2'
+                    user={user}
+                    tagline={statusMessage} />
+                </div>
+              )
+            }) : null}
           </nav>
         </div>
 
@@ -76,6 +90,7 @@ const GROUP_QUERY = gql`
       members(first:5) {
         edges {
           node {
+            avatar(width: 80, height: 80)
             displayName
           }
         }

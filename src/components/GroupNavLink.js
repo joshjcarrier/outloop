@@ -7,7 +7,7 @@ class GroupNavLink extends Component {
     return (
       <NavLink to={`${process.env.PUBLIC_URL}/group/${this.props.group.id}`}
         className='w5 f6 white-70 helvetica no-underline dib pv2 dim truncate'
-        activeClassName='bg-white-30'
+        activeClassName='bg-white-30 white-90'
         title={this.props.group.displayName}>
         <span className='ph2'>
           {this.props.group.displayName}

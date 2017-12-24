@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import truncate from 'truncate';
 import Skeleton from 'react-loading-skeleton';
+import UserCompactCard from './UserCompactCard';
 
 class DiscoveryTileFeed extends Component {
 
@@ -34,26 +35,12 @@ class DiscoveryTileFeed extends Component {
               <div className='h-100 pr3 pb3 db'>
 
                 <div className='h-100 flex flex-column pa3 ba b--light-gray br2'>
-                  <div>
-                    <div className='fl w3'>
-                      {threadEdge.node ? <img
-                        src={threadEdge.node.threadStarter.sender.avatar}
-                        className='w3 br-100 dib pt1'
-                        alt={threadEdge.node.threadStarter.sender.displayName}
-                        title={threadEdge.node.threadStarter.sender.displayName} /> : <div className='w3 h3 br-100 dib pt1 bg-light-gray' />}
-                    </div>
-                    <div className='fl w-80 pl3 pt2'>
-                      <div className='f5 b helvetica pt1 truncate'>
-                        {threadEdge.node ? threadEdge.node.threadStarter.sender.displayName : <Skeleton />}
-                      </div>
-                      <div className='f6 helvetica pt1 truncate'>
-                        {threadEdge.node ? <span>in <Link to={`${process.env.PUBLIC_URL}/group/${threadEdge.node.group.id}`}
-                          className='black-80 helvetica no-underline dim'>
-                          {threadEdge.node.group.displayName}
-                        </Link></span> : <Skeleton />}
-                      </div>
-                    </div>
-                  </div>
+                  <UserCompactCard className='pv2'
+                    user={threadEdge.node ? threadEdge.node.threadStarter.sender : null}
+                    tagline={threadEdge.node ? <span>in <Link to={`${process.env.PUBLIC_URL}/group/${threadEdge.node.group.id}`}
+                      className='black-80 helvetica no-underline dim'>
+                      {threadEdge.node.group.displayName}
+                    </Link></span> : <Skeleton />} />
                   <div className='f6 pt3 lh-copy helvetica overflow-hidden'>
                     <div className='dt dt--fixed'>
                       <div className='dtc h5'>

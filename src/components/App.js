@@ -42,12 +42,8 @@ class App extends Component {
           </div>
           <div className='dtc v-top h-100 w-100'>
             <Switch>
-              <Route exact path={`${process.env.PUBLIC_URL}/`}>
-                <DiscoveryTileFeed />
-              </Route>
+              <Route exact path={`${process.env.PUBLIC_URL}/`} component={DiscoveryTileFeed} />
               <Route path={`${process.env.PUBLIC_URL}/group/:id`} component={Group} />
-              {/* <Route exact path='/' component={LinkList} /> */}
-              {/* <Route exact path='/create' component={CreateLink}/> */}
             </Switch>
           </div>
         </div>

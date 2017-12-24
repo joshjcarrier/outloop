@@ -27,8 +27,9 @@ class GlobalNav extends Component {
 
         <nav className='flex flex-column h-100'>
           <NavLink to={`${process.env.PUBLIC_URL}/`}
+            exact={true}
             className='w-100 f5 white-70 b helvetica no-underline dib pv2 dim bb b--dark-gray'
-            activeClassName='bg-white-30'>
+            activeClassName='bg-white-30 white-90'>
             <span className='ph2'>
               <span role='img' aria-label='discovery'>🏠</span>&nbsp;&nbsp;Discovery
             </span>
@@ -36,9 +37,9 @@ class GlobalNav extends Component {
 
           <NavLink to={`${process.env.PUBLIC_URL}/inbox`}
             className='w-100 f5 white-70 b helvetica no-underline dib pv2 dim bb b--dark-gray'
-            activeClassName='bg-white-30'>
+            activeClassName='bg-white-30 white-90'>
             <span className='ph2'>
-              <span role='img' aria-label='inbox'>✉</span>&nbsp;&nbsp;Inbox
+              <span role='img' aria-label='inbox'>✉️</span>&nbsp;&nbsp;Inbox
             </span>
           </NavLink>
 
