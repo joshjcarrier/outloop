@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 // import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 // import truncate from 'truncate';
-import Skeleton from 'react-loading-skeleton';
+// import Skeleton from 'react-loading-skeleton';
 
 class GroupFeed extends Component {
 
