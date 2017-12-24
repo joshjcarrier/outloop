@@ -24,7 +24,7 @@ class GlobalNav extends Component {
     const linksToRender = viewer.groups.edges;
 
     return (
-      <div className='flex flex-column justify-between vh-100'>
+      <div className='flex flex-column justify-between h-100'>
         <ViewerNavHeader viewer={viewer} />
 
         <nav className='flex flex-column h-100'>
@@ -53,7 +53,7 @@ class GlobalNav extends Component {
           </div>
         </nav>
 
-        <div className='w-100 f5 white-70 b helvetica no-underline dib pv2'>
+        <div className='w-100 f5 white-70 b helvetica no-underline dib pt2 pb4'>
           <span className='ph2'>
             Private Messages
           </span>
@@ -77,7 +77,6 @@ const GLOBAL_NAV_QUERY = gql`
       groups(first: 10) {
         edges {
           node {
-            databaseId
             displayName
             id
           }

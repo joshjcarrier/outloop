@@ -35,22 +35,14 @@ class App extends Component {
     }
 
     return (
-      <div className='vh-100'>
-        <div className='vh-100 fl w5 pv2 white' style={{ backgroundColor: '#343A41' }}>
+      <div className='flex vh-100'>
+        <div className='h-100 fl w5 pv2 white' style={{ backgroundColor: '#343A41' }}>
           <GlobalNav />
         </div>
-        <div className='fl w-75 pa4 black'>
+        <div className='w-75 mt4'>
           <Switch>
             <Route exact path={`${process.env.PUBLIC_URL}/`}>
-              <div>
-                <nav className="pa3 pa4-ns">
-                  <a className="link dim black b f6 f5-ns dib mr3 ttu tracked" href="/" title="Home">Communities</a>
-                  <a className="link dim gray    f6 f5-ns dib mr3 ttu tracked" href="/" title="Home">Departments</a>
-                  <a className="link dim gray    f6 f5-ns dib mr3 ttu tracked" href="/" title="About">Projects</a>
-                </nav>
-                <h1 className='f2 lh-copy'>Communities</h1>
-                <DiscoveryTileFeed />
-              </div>
+              <DiscoveryTileFeed />
             </Route>
             <Route path={`${process.env.PUBLIC_URL}/group/:id`} component={TileFeed} />
             {/* <Route exact path='/' component={LinkList} /> */}

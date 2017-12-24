@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import { Link } from 'react-router-dom';
+import gql from 'graphql-tag';
+import truncate from 'truncate';
 
 class DiscoveryTileFeed extends Component {
 
@@ -18,31 +20,57 @@ class DiscoveryTileFeed extends Component {
     // 3
     const threadEdges = this.props.discoveryTileFeedQuery.viewer.discoveryFeed.threads.edges;
     return (
-      <div className='w100'>
-        {threadEdges.map(threadEdge => (
-          <div className='fl w-third pa2'>
-            <article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
-              <div class="tc">
-                <div className='fl w-40 pa2'>
-                  <img
-                    src={threadEdge.node.threadStarter.sender.avatar}
-                    className='br-100 h3 w3 dib' alt='Avatar' />
-                </div>
-                <div className='fl w-60 pa2'>
-                  <div className='b'>
-                    {threadEdge.node.threadStarter.sender.displayName}
-                  </div>
+      <div className='flex flex-column w-100'>
+        <nav className='nowrap bb b--light-gray'>
+          <a className="link dim black b f6 dib ttu pa2 ml5 bb bw2 b--blue" href="/" title="Home">Communities</a>
+          <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="Home">Departments</a>
+          <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="About">Projects</a>
+        </nav>
+
+        <h2 className='ml5 pt3'>Communities</h2>
+
+        <section class="pl5 w-100">
+          {threadEdges.map(threadEdge => (
+            <article className="fl w-100 w-50-m w-third-ns h5">
+
+              <div className='h-100 pr3 pb3 db'>
+
+                <div className='h-100 flex flex-column pa3 ba b--light-gray br2'>
                   <div>
-                    in {threadEdge.node.group.displayName}
+                    <div className='fl w3'>
+                      <img
+                        src={threadEdge.node.threadStarter.sender.avatar}
+                        className='w3 br-100 dib pt1'
+                        alt={threadEdge.node.threadStarter.sender.displayName}
+                        title={threadEdge.node.threadStarter.sender.displayName} />
+                    </div>
+                    <div className='fl w-80 pl3 pt2'>
+                      <div className='f5 b helvetica pt1 truncate'>
+                        {threadEdge.node.threadStarter.sender.displayName}
+                      </div>
+                      <div className='f6 helvetica pt1 truncate'>
+                        in <Link to={`${process.env.PUBLIC_URL}/group/${threadEdge.node.group.id}`}
+                          className='black-80 helvetica no-underline dim'>
+                          {threadEdge.node.group.displayName}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='f6 pt3 lh-copy helvetica overflow-hidden'>
+                    <div className='dt dt--fixed'>
+                      <div className='dtc h5'>
+                        {truncate(threadEdge.node.threadStarter.content.body.parsedBody, 240)}
+                      </div>
+                    </div>
+                  </div>
+                  <div className='f6 pt3 lh-copy helvetica'>
+                    <span role='img' aria-label='replies' title={`Replies: ${threadEdge.node.replies.totalCount}`}>💬</span>&nbsp;{threadEdge.node.replies.totalCount}
                   </div>
                 </div>
               </div>
-              <p class="lh-copy measure center f6 black-70">
-                {threadEdge.node.threadStarter.content.body.parsedBody}
-              </p>
             </article>
-          </div>
-        ))}
+          ))}
+        </section>
       </div>
     )
   }
@@ -59,6 +87,7 @@ const DISCOVERY_TILE_FEED_QUERY = gql`
             node {
               group {
                 displayName
+                id
               }
               threadStarter {
                 content {
@@ -75,6 +104,9 @@ const DISCOVERY_TILE_FEED_QUERY = gql`
                     displayName
                   }
                 }
+              }
+              replies(last:1) {
+                totalCount
               }
             }
           }
