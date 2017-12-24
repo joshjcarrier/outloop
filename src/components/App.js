@@ -36,7 +36,7 @@ class App extends Component {
 
     return (
       <div className='center w100'>
-        <div className='vh-100 fl w-25 pa2 white' style={{ backgroundColor: '#343A41' }}>
+        <div className='vh-100 fl w5 pa2 white' style={{ backgroundColor: '#343A41' }}>
           <GlobalNav />
         </div>
         <div className='fl w-75 pa4 black'>
