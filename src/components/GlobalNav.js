@@ -10,18 +10,16 @@ class GlobalNav extends Component {
   render() {
 
     // 1
-    if (this.props.globalNavQuery && this.props.globalNavQuery.loading) {
-      return <div></div>
-    }
+    const query = this.props.globalNavQuery;
 
     // 2
-    if (this.props.globalNavQuery && this.props.globalNavQuery.error) {
+    if (query && query.error) {
       return <div>Error. Check query or authentication token.</div>
     }
 
     // 3
-    const viewer = this.props.globalNavQuery.viewer;
-    const linksToRender = viewer.groups.edges;
+    const viewer = query.viewer;
+    const linksToRender = viewer ? viewer.groups.edges : null;
 
     return (
       <div className='flex flex-column justify-between h-100'>

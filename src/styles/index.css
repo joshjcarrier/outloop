@@ -41,3 +41,11 @@ input {
   cursor: pointer;
   max-width: 250px;
 }
+
+.h2_5 {
+  height: 2.5rem;
+}
+
+.w2_5 {
+  width: 2.5rem;
+}

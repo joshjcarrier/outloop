@@ -3,17 +3,16 @@ import { graphql } from 'react-apollo';
 // import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 // import truncate from 'truncate';
+import Skeleton from 'react-loading-skeleton';
 
 class GroupFeed extends Component {
 
   render() {
     // 1
-    if (this.props.groupFeedQuery && this.props.groupFeedQuery.loading) {
-      return <div></div>
-    }
+    var query = this.props.groupFeedQuery;
 
     // 2
-    if (this.props.groupFeedQuery && this.props.groupFeedQuery.error) {
+    if (query && query.error) {
       return <div>Error. Check query or authentication token.</div>
     }
 
@@ -22,16 +21,16 @@ class GroupFeed extends Component {
     return (
       <div className='flex flex-column w-100'>
         <nav className='nowrap bb b--light-gray'>
-          <a className="link dim black b f6 dib ttu pa2 ml5 bb bw2 b--blue" href="/" title="New Conversations">New Conversations</a>
+          <a className="link dim black b f6 dib ttu pa2 ml4 bb bw2 b--blue" href="/" title="New Conversations">New Conversations</a>
           <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="All Conversations">All Conversations</a>
           <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="Files">Files</a>
         </nav>
 
-        <input className="ml5 mt4 f6 f5-l input-reset fl black-80 bg-white bb b--solid bw1 b--light-gray pa3 lh-solid w-100 br2-ns br--left-ns" placeholder="Share something with this community" />
+        <input className="ml4 mt4 f6 f5-l input-reset fl black-80 bg-white bb b--solid bw1 b--light-gray pa3 lh-solid w-100 br2-ns br--left-ns" placeholder="Share something with this community" />
 
-        <h2 className='ml5 pt2'>New conversations</h2>
+        <h2 className='ml4 pt2'>New conversations</h2>
 
-        <section class="pl5 w-100">
+        <section class="pl4 w-100">
           {/* {threadEdges.map(threadEdge => (
             <article className="fl w-100 w-50-m w-third-ns h5">
 

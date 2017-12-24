@@ -3,22 +3,20 @@ import { graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import truncate from 'truncate';
+import Skeleton from 'react-loading-skeleton';
 
 class DiscoveryTileFeed extends Component {
 
   render() {
-    // 1
-    if (this.props.discoveryTileFeedQuery && this.props.discoveryTileFeedQuery.loading) {
-      return <div></div>
-    }
+    const query = this.props.discoveryTileFeedQuery;
 
     // 2
-    if (this.props.discoveryTileFeedQuery && this.props.discoveryTileFeedQuery.error) {
+    if (query && query.error) {
       return <div>Error. Check query or authentication token.</div>
     }
 
-    // 3
-    const threadEdges = this.props.discoveryTileFeedQuery.viewer.discoveryFeed.threads.edges;
+    // 3 
+    const threadEdges = !query.loading ? query.viewer.discoveryFeed.threads.edges : [0, 1, 2];
     return (
       <div className='flex flex-column w-100 mt4'>
         <nav className='nowrap bb b--light-gray'>
@@ -29,42 +27,42 @@ class DiscoveryTileFeed extends Component {
 
         <h2 className='ml5 pt3'>Communities</h2>
 
-        <section class="pl5 w-100">
+        <section className="pl5 w-100">
           {threadEdges.map(threadEdge => (
-            <article className="fl w-100 w-50-m w-third-ns h5">
+            <article className="fl w-100 w-50-m w-third-ns h5" key={threadEdge}>
 
               <div className='h-100 pr3 pb3 db'>
 
                 <div className='h-100 flex flex-column pa3 ba b--light-gray br2'>
                   <div>
                     <div className='fl w3'>
-                      <img
+                      {threadEdge.node ? <img
                         src={threadEdge.node.threadStarter.sender.avatar}
                         className='w3 br-100 dib pt1'
                         alt={threadEdge.node.threadStarter.sender.displayName}
-                        title={threadEdge.node.threadStarter.sender.displayName} />
+                        title={threadEdge.node.threadStarter.sender.displayName} /> : <div className='w3 h3 br-100 dib pt1 bg-light-gray' />}
                     </div>
                     <div className='fl w-80 pl3 pt2'>
                       <div className='f5 b helvetica pt1 truncate'>
-                        {threadEdge.node.threadStarter.sender.displayName}
+                        {threadEdge.node ? threadEdge.node.threadStarter.sender.displayName : <Skeleton />}
                       </div>
                       <div className='f6 helvetica pt1 truncate'>
-                        in <Link to={`${process.env.PUBLIC_URL}/group/${threadEdge.node.group.id}`}
+                        {threadEdge.node ? <span>in <Link to={`${process.env.PUBLIC_URL}/group/${threadEdge.node.group.id}`}
                           className='black-80 helvetica no-underline dim'>
                           {threadEdge.node.group.displayName}
-                        </Link>
+                        </Link></span> : <Skeleton />}
                       </div>
                     </div>
                   </div>
                   <div className='f6 pt3 lh-copy helvetica overflow-hidden'>
                     <div className='dt dt--fixed'>
                       <div className='dtc h5'>
-                        {truncate(threadEdge.node.threadStarter.content.body.parsedBody, 240)}
+                        {threadEdge.node ? truncate(threadEdge.node.threadStarter.content.body.parsedBody, 240) : <Skeleton count='3' />}
                       </div>
                     </div>
                   </div>
                   <div className='f6 pt3 lh-copy helvetica'>
-                    <span role='img' aria-label='replies' title={`Replies: ${threadEdge.node.replies.totalCount}`}>💬</span>&nbsp;{threadEdge.node.replies.totalCount}
+                    {threadEdge.node ? (threadEdge.node.replies.totalCount > 0 ? <span><span role='img' aria-label='replies' title={`Replies: ${threadEdge.node.replies.totalCount}`}>💬</span>&nbsp;{threadEdge.node.replies.totalCount}</span> : null) : <Skeleton />}
                   </div>
                 </div>
               </div>
