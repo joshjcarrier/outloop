@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 // import AllTileFeed from './AllTileFeed';
 import DiscoveryTileFeed from './DiscoveryTileFeed';
-import TileFeed from './TileFeed';
+import Group from './Group';
 import QueryString from 'query-string';
 
 class App extends Component {
@@ -39,12 +39,12 @@ class App extends Component {
         <div className='h-100 fl w5 pv2 white' style={{ backgroundColor: '#343A41' }}>
           <GlobalNav />
         </div>
-        <div className='w-75 mt4'>
+        <div className='w-75'>
           <Switch>
             <Route exact path={`${process.env.PUBLIC_URL}/`}>
               <DiscoveryTileFeed />
             </Route>
-            <Route path={`${process.env.PUBLIC_URL}/group/:id`} component={TileFeed} />
+            <Route path={`${process.env.PUBLIC_URL}/group/:id`} component={Group} />
             {/* <Route exact path='/' component={LinkList} /> */}
             {/* <Route exact path='/create' component={CreateLink}/> */}
           </Switch>

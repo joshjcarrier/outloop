@@ -78,7 +78,7 @@ const GLOBAL_NAV_QUERY = gql`
         edges {
           node {
             displayName
-            id
+            id:databaseId
           }
         }
       }

@@ -1,36 +1,38 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
-import truncate from 'truncate';
+// import truncate from 'truncate';
 
-class DiscoveryTileFeed extends Component {
+class GroupFeed extends Component {
 
   render() {
     // 1
-    if (this.props.discoveryTileFeedQuery && this.props.discoveryTileFeedQuery.loading) {
+    if (this.props.groupFeedQuery && this.props.groupFeedQuery.loading) {
       return <div></div>
     }
 
     // 2
-    if (this.props.discoveryTileFeedQuery && this.props.discoveryTileFeedQuery.error) {
+    if (this.props.groupFeedQuery && this.props.groupFeedQuery.error) {
       return <div>Error. Check query or authentication token.</div>
     }
 
     // 3
-    const threadEdges = this.props.discoveryTileFeedQuery.viewer.discoveryFeed.threads.edges;
+    // const threadEdges = this.props.groupFeedQuery.viewer.discoveryFeed.threads.edges;
     return (
-      <div className='flex flex-column w-100 mt4'>
+      <div className='flex flex-column w-100'>
         <nav className='nowrap bb b--light-gray'>
-          <a className="link dim black b f6 dib ttu pa2 ml5 bb bw2 b--blue" href="/" title="Home">Communities</a>
-          <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="Home">Departments</a>
-          <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="About">Projects</a>
+          <a className="link dim black b f6 dib ttu pa2 ml5 bb bw2 b--blue" href="/" title="New Conversations">New Conversations</a>
+          <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="All Conversations">All Conversations</a>
+          <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="Files">Files</a>
         </nav>
 
-        <h2 className='ml5 pt3'>Communities</h2>
+        <input className="ml5 mt4 f6 f5-l input-reset fl black-80 bg-white bb b--solid bw1 b--light-gray pa3 lh-solid w-100 br2-ns br--left-ns" placeholder="Share something with this community" />
+
+        <h2 className='ml5 pt2'>New conversations</h2>
 
         <section class="pl5 w-100">
-          {threadEdges.map(threadEdge => (
+          {/* {threadEdges.map(threadEdge => (
             <article className="fl w-100 w-50-m w-third-ns h5">
 
               <div className='h-100 pr3 pb3 db'>
@@ -69,7 +71,7 @@ class DiscoveryTileFeed extends Component {
                 </div>
               </div>
             </article>
-          ))}
+          ))} */}
         </section>
       </div>
     )
@@ -77,44 +79,15 @@ class DiscoveryTileFeed extends Component {
 }
 
 // 1
-const DISCOVERY_TILE_FEED_QUERY = gql`
+const GROUP_FEED_QUERY = gql`
   # 2
-  query OutloopDiscoveryTileFeedQuery {
-    viewer { 
-      discoveryFeed {
-        threads(last: 6) {
-          edges {
-            node {
-              group {
-                id:databaseId
-                displayName
-              }
-              threadStarter {
-                content {
-                  ... on NormalMessageContent {
-                    body {
-                      parsedBody
-                    }
-                  }
-                }
-                createdAt
-                sender {
-                  ... on User {
-                    avatar(width:80, height:80)
-                    displayName
-                  }
-                }
-              }
-              replies(last:1) {
-                totalCount
-              }
-            }
-          }
-        }
-      }
+  query OutloopGroupFeedQuery($id: String!) {
+    group(databaseId: $id) {
+      displayName
+      id:databaseId
     }
   }
 `
 
 // 3
-export default graphql(DISCOVERY_TILE_FEED_QUERY, { name: 'discoveryTileFeedQuery' })(DiscoveryTileFeed)
+export default graphql(GROUP_FEED_QUERY, { name: 'groupFeedQuery', options: (props) => ({ variables: { id: props.id } }) })(GroupFeed)
