@@ -8,6 +8,7 @@ import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
+import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -25,7 +26,12 @@ const middlewareLink = new ApolloLink((operation, forward) => {
 })
 
 // use with apollo-client
-const link = middlewareLink.concat(httpLink);
+const errorLink = onError(({ networkError }) => {
+  if (networkError.statusCode === 401) {
+    window.location.replace('https://www.yammer.com/dialog/oauth?client_id=5hFM4jak52LokZ8aVbbQ&response_type=token');
+  }
+})
+const link = errorLink.concat(middlewareLink.concat(httpLink));
 
 // 3
 const client = new ApolloClient({
