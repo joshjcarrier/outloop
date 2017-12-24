@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 // import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
+import ThreadCompactCard from './ThreadCompactCard';
 // import truncate from 'truncate';
 // import Skeleton from 'react-loading-skeleton';
 
@@ -17,7 +18,8 @@ class GroupFeed extends Component {
     }
 
     // 3
-    // const threadEdges = this.props.groupFeedQuery.viewer.discoveryFeed.threads.edges;
+    const allThreadEdges = !query.loading ? query.group.feed.threads.edges : [0, 1, 2];
+    const unseenThreadEdges = !query.loading ? query.group.feed.unseenThreads.edges : [0, 1, 2];
     return (
       <div className='flex flex-column w-100'>
         <nav className='nowrap bb b--light-gray'>
@@ -28,49 +30,20 @@ class GroupFeed extends Component {
 
         <input className="ml4 mt4 f6 f5-l input-reset fl black-80 bg-white bb b--solid bw1 b--light-gray pa3 lh-solid w-100 br2-ns br--left-ns" placeholder="Share something with this community" />
 
+        <h2 className='ml4 pt2'>Trending now</h2>
+
+        <section className="pl4 w-100">
+          {allThreadEdges.map(threadEdge => (
+            <ThreadCompactCard thread={threadEdge.node} />
+          ))}
+        </section>
+
         <h2 className='ml4 pt2'>New conversations</h2>
 
-        <section class="pl4 w-100">
-          {/* {threadEdges.map(threadEdge => (
-            <article className="fl w-100 w-50-m w-third-ns h5">
-
-              <div className='h-100 pr3 pb3 db'>
-
-                <div className='h-100 flex flex-column pa3 ba b--light-gray br2'>
-                  <div>
-                    <div className='fl w3'>
-                      <img
-                        src={threadEdge.node.threadStarter.sender.avatar}
-                        className='w3 br-100 dib pt1'
-                        alt={threadEdge.node.threadStarter.sender.displayName}
-                        title={threadEdge.node.threadStarter.sender.displayName} />
-                    </div>
-                    <div className='fl w-80 pl3 pt2'>
-                      <div className='f5 b helvetica pt1 truncate'>
-                        {threadEdge.node.threadStarter.sender.displayName}
-                      </div>
-                      <div className='f6 helvetica pt1 truncate'>
-                        in <Link to={`${process.env.PUBLIC_URL}/group/${threadEdge.node.group.id}`}
-                          className='black-80 helvetica no-underline dim'>
-                          {threadEdge.node.group.displayName}
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='f6 pt3 lh-copy helvetica overflow-hidden'>
-                    <div className='dt dt--fixed'>
-                      <div className='dtc h5'>
-                        {truncate(threadEdge.node.threadStarter.content.body.parsedBody, 240)}
-                      </div>
-                    </div>
-                  </div>
-                  <div className='f6 pt3 lh-copy helvetica'>
-                    <span role='img' aria-label='replies' title={`Replies: ${threadEdge.node.replies.totalCount}`}>💬</span>&nbsp;{threadEdge.node.replies.totalCount}
-                  </div>
-                </div>
-              </div>
-            </article>
-          ))} */}
+        <section className="pl4 w-100">
+          {unseenThreadEdges.map(threadEdge => (
+            <ThreadCompactCard thread={threadEdge.node} />
+          ))}
         </section>
       </div>
     )
@@ -80,10 +53,46 @@ class GroupFeed extends Component {
 // 1
 const GROUP_FEED_QUERY = gql`
   # 2
+  fragment ThreadFeed on GroupFeedThreadConnection {
+    edges {
+      node {
+        group {
+          id:databaseId
+          displayName
+        }
+        threadStarter {
+          content {
+            ... on NormalMessageContent {
+              body {
+                parsedBody
+              }
+            }
+          }
+          sender {
+            ... on User {
+              avatar(width:80, height:80)
+              displayName
+            }
+          }
+        }
+        replies(last:1) {
+          totalCount
+        }
+        updatedAt
+      }
+    }
+  }
   query OutloopGroupFeedQuery($id: String!) {
     group(databaseId: $id) {
-      displayName
       id:databaseId
+      feed {
+        threads(last:3, type: ALL) {
+          ... ThreadFeed
+        }
+        unseenThreads: threads(last:3, type: UNSEEN) {
+          ... ThreadFeed
+        }
+      }
     }
   }
 `

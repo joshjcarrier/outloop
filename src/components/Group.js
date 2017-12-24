@@ -32,8 +32,7 @@ class Group extends Component {
           <nav className='flex flex-column pt4'>
             <Link to={`${process.env.PUBLIC_URL}/`}
               className='w-100 f5 black-80 helvetica no-underline dib pl2 pv2 bg-light-blue'
-              style={group ? { backgroundColor: group.color + "88" } : {}}
-              activeClassName='bg-white-30'>
+              style={group ? { backgroundColor: group.color + "88" } : {}}>
               <span className='ph2 helvetica'>
                 Conversations
               </span>
@@ -69,7 +68,7 @@ class Group extends Component {
           </nav>
         </div>
 
-        <div className='dtc v-top vh-100 pt4'>
+        <div className='dtc v-top vh-100 pt4 pr4'>
           <GroupFeed id={this.props.match.params.id} />
         </div>
       </div>

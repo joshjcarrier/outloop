@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
-import truncate from 'truncate';
-import Skeleton from 'react-loading-skeleton';
-import UserCompactCard from './UserCompactCard';
+import ThreadCompactCard from './ThreadCompactCard';
 
 class DiscoveryTileFeed extends Component {
 
@@ -30,30 +27,8 @@ class DiscoveryTileFeed extends Component {
 
         <section className="pl5 w-100">
           {threadEdges.map(threadEdge => (
-            <article className="fl w-100 w-50-m w-third-ns h5" key={threadEdge}>
-
-              <div className='h-100 pr3 pb3 db'>
-
-                <div className='h-100 flex flex-column pa3 ba b--light-gray br2'>
-                  <UserCompactCard className='pv2'
-                    user={threadEdge.node ? threadEdge.node.threadStarter.sender : null}
-                    tagline={threadEdge.node ? <span>in <Link to={`${process.env.PUBLIC_URL}/group/${threadEdge.node.group.id}`}
-                      className='black-80 helvetica no-underline dim'>
-                      {threadEdge.node.group.displayName}
-                    </Link></span> : <Skeleton />} />
-                  <div className='f6 pt3 lh-copy helvetica overflow-hidden'>
-                    <div className='dt dt--fixed'>
-                      <div className='dtc h5'>
-                        {threadEdge.node ? truncate(threadEdge.node.threadStarter.content.body.parsedBody, 240) : <Skeleton count='3' />}
-                      </div>
-                    </div>
-                  </div>
-                  <div className='f6 pt3 lh-copy helvetica'>
-                    {threadEdge.node ? (threadEdge.node.replies.totalCount > 0 ? <span><span role='img' aria-label='replies' title={`Replies: ${threadEdge.node.replies.totalCount}`}>💬</span>&nbsp;{threadEdge.node.replies.totalCount}</span> : null) : <Skeleton />}
-                  </div>
-                </div>
-              </div>
-            </article>
+            <ThreadCompactCard thread={threadEdge.node}
+              includeGroupContext={true} />
           ))}
         </section>
       </div>
@@ -82,7 +57,6 @@ const DISCOVERY_TILE_FEED_QUERY = gql`
                     }
                   }
                 }
-                createdAt
                 sender {
                   ... on User {
                     avatar(width:80, height:80)
@@ -93,6 +67,7 @@ const DISCOVERY_TILE_FEED_QUERY = gql`
               replies(last:1) {
                 totalCount
               }
+              updatedAt
             }
           }
         }

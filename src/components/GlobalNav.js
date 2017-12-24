@@ -22,7 +22,7 @@ class GlobalNav extends Component {
     const linksToRender = viewer ? viewer.groups.edges : null;
 
     return (
-      <div className='flex flex-column justify-between h-100'>
+      <div className='flex flex-column justify-between h-100 fixed'>
         <ViewerNavHeader viewer={viewer} />
 
         <nav className='flex flex-column h-100'>
