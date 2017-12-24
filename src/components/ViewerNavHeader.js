@@ -4,7 +4,7 @@ class ViewerNavHeader extends Component {
 
   render() {
     return (
-      <div className='flex items-center w-100'>
+      <div className='flex items-center w-100 pa2 pv3'>
         <div className='w3'>
           <img
             src={this.props.viewer.avatar}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import { NavLink } from 'react-router-dom';
 import gql from 'graphql-tag';
 import GroupNavLinkList from './GroupNavLinkList';
 import ViewerNavHeader from './ViewerNavHeader';
@@ -23,22 +24,41 @@ class GlobalNav extends Component {
     const linksToRender = viewer.groups.edges;
 
     return (
-      <div className='vh-100 pa2'>
+      <div className='flex flex-column justify-between vh-100'>
         <ViewerNavHeader viewer={viewer} />
 
-        <ul class="list pl0 measure center">
-          <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30 b"><span role='img' aria-label='discovery'>🏠</span> Discovery</li>
-          <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30 b">✉ Inbox</li>
-          <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30 b"><span role='img' aria-label='communities'>🌐</span> Communities</li>
-        </ul>
-        <GroupNavLinkList links={linksToRender} />
+        <nav className='flex flex-column h-100'>
+          <NavLink to={`${process.env.PUBLIC_URL}/`}
+            className='w-100 f5 white-70 b helvetica no-underline dib pv2 dim bb b--dark-gray'
+            activeClassName='bg-white-30'>
+            <span className='ph2'>
+              <span role='img' aria-label='discovery'>🏠</span>&nbsp;&nbsp;Discovery
+            </span>
+          </NavLink>
 
-        <div className='dib v-btm'>
-          <ul class="list pl0 measure center">
-            <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30 b">Private Messages</li>
-          </ul>
+          <NavLink to={`${process.env.PUBLIC_URL}/inbox`}
+            className='w-100 f5 white-70 b helvetica no-underline dib pv2 dim bb b--dark-gray'
+            activeClassName='bg-white-30'>
+            <span className='ph2'>
+              <span role='img' aria-label='inbox'>✉</span>&nbsp;&nbsp;Inbox
+            </span>
+          </NavLink>
+
+          <div className='w-100 f5 white-70 helvetica no-underline dib pv2 bb b--dark-gray'>
+            <div className='ph2 pb2 b'>
+              <span role='img' aria-label='communities'>🌐</span>&nbsp;&nbsp;Communities
+            </div>
+
+            <GroupNavLinkList links={linksToRender} />
+          </div>
+        </nav>
+
+        <div className='w-100 f5 white-70 b helvetica no-underline dib pv2'>
+          <span className='ph2'>
+            Private Messages
+          </span>
         </div>
-      </div>
+      </div >
     )
   }
 

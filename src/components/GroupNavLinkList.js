@@ -5,13 +5,12 @@ class GroupNavLinkList extends Component {
 
   render() {
     return (
-      <div>
-        <ul class="list pl0 measure center">
-          {this.props.links.map(link => (
-            <GroupNavLink key={link.node.id} group={link.node} />
-          ))}
-        </ul>
-      </div>
+      <nav className='flex flex-column h-100'>
+        {this.props.links.map(link => (
+          <GroupNavLink key={link.node.id} group={link.node} />
+        ))}
+        <GroupNavLink key='eydfdHlwZSc6J0dyb3VwJywnaWQnOjB9' group={{ databaseId: 0, displayName: 'All Company', id: 'eydfdHlwZSc6J0dyb3VwJywnaWQnOjB9' }} />
+      </nav>
     )
   }
 }

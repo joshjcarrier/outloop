@@ -1,10 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 class GroupNavLink extends Component {
 
   render() {
     return (
-      <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--none">{this.props.group.displayName}</li>
+      <NavLink to={`${process.env.PUBLIC_URL}/group/${this.props.group.databaseId}`}
+        className='w5 f6 white-70 helvetica no-underline dib pv2 dim truncate'
+        activeClassName='bg-white-30'
+        title={this.props.group.displayName}>
+        <span className='ph2'>
+          {this.props.group.displayName}
+        </span>
+      </NavLink>
     )
   }
 }
