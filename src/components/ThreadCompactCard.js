@@ -8,20 +8,6 @@ import UserCompactCard from './UserCompactCard';
 class ThreadCompactCard extends Component {
 
   render() {
-    // const user = this.props.user;
-    // const theme = this.props.theme || 'light';
-
-    // var fontColorClasses = 'black-70';
-    // var avatarBackgroundColorClasses = 'bg-light-gray';
-    // switch (theme) {
-    //   case 'dark':
-    //     fontColorClasses = 'white-70';
-    //     avatarBackgroundColorClasses = 'bg-light-gray';
-    //     break;
-    //   default:
-    //     break;
-    // }
-
     const thread = this.props.thread;
     const includeGroupContext = this.props.includeGroupContext || false;
     const humanReadableUpdatedAt = thread ? (<span title={hdate.prettyPrint(thread.updatedAt, { showTime: true })}>{hdate.relativeTime(thread.updatedAt)}</span>) : null;
