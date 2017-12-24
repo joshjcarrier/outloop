@@ -14,6 +14,8 @@ class UserCompactCard extends Component {
         fontColorClasses = 'white-70';
         avatarBackgroundColorClasses = 'bg-light-gray';
         break;
+      default:
+        break;
     }
 
     return (
