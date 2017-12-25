@@ -17,7 +17,7 @@ class DiscoveryTileFeed extends Component {
     const threadEdges = !query.loading ? query.viewer.discoveryFeed.threads.edges : [0, 1, 2];
     return (
       <div className='flex flex-column w-100 mt4'>
-        <nav className='nowrap bb b--light-gray'>
+        <nav className='nowrap overflow-x-auto bb b--light-gray'>
           <a className="link dim black b f6 dib ttu pa2 ml5 bb bw2 b--blue" href="/" title="Home">Communities</a>
           <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="Home">Departments</a>
           <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="About">Projects</a>

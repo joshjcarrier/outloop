@@ -22,7 +22,7 @@ class GroupFeed extends Component {
     const unseenThreadEdges = !query.loading ? query.group.feed.unseenThreads.edges : [0, 1, 2];
     return (
       <div className='flex flex-column w-100'>
-        <nav className='nowrap bb b--light-gray'>
+        <nav className='nowrap overflow-x-auto bb b--light-gray'>
           <a className="link dim black b f6 dib ttu pa2 ml4 bb bw2 b--blue" href="/" title="New Conversations">New Conversations</a>
           <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="All Conversations">All Conversations</a>
           <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="Files">Files</a>

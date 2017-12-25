@@ -11,7 +11,7 @@ class ViewerNavHeader extends Component {
         className='pa2 pb3'
         user={viewer}
         tagline={viewer ? `${viewer.network.displayName} Network` : <Skeleton />}
-        actionPane={<div className='w1 center pt2 pt0-l pr0 pr2-l'><span role='img' aria-label='notifications' className={viewer ? 'o-90 bell' : 'o-20'}>🔔</span></div>} />
+        actionPane={<div className='w1 center pt2 pt0-l pr0 pr2-l'><span role='img' aria-label='notifications' className={viewer ? 'w1 o-90 bell' : 'w1 o-20'}>🔔</span></div>} />
     )
   }
 }
