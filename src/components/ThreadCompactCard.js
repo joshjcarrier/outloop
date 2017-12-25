@@ -27,7 +27,7 @@ class ThreadCompactCard extends Component {
             <div className='f6 pt3 lh-copy helvetica overflow-hidden'>
               <div className='dt dt--fixed'>
                 <div className='dtc h5'>
-                  {thread ? truncate(thread.threadStarter.content.body.parsedBody, 240) : <Skeleton count='3' />}
+                  {thread ? truncate(thread.threadStarter.content.body ? thread.threadStarter.content.body.parsedBody : 'posted an announcement!', 240) : <Skeleton count='3' />}
                 </div>
               </div>
             </div>

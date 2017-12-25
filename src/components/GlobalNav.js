@@ -22,41 +22,43 @@ class GlobalNav extends Component {
     const linksToRender = viewer ? viewer.groups.edges : null;
 
     return (
-      <div className='flex flex-column justify-between h-100 fixed'>
+      <div className='w5-l w3-m w3-ns w3 flex flex-column justify-between h-100 fixed'>
         <ViewerNavHeader viewer={viewer} />
 
         <nav className='flex flex-column h-100'>
           <NavLink to={`${process.env.PUBLIC_URL}/`}
             exact={true}
-            className='w-100 f5 white-70 b helvetica no-underline dib pv2 dim bb b--dark-gray'
-            activeClassName='bg-white-30 white-90'>
-            <span className='ph2'>
-              <span role='img' aria-label='discovery'>🏠</span>&nbsp;&nbsp;Discovery
+            className='w-100 f5 white-70 b helvetica no-underline dib pv2 dim bb b--dark-gray tc tl-l'
+            activeClassName='bg-white-30 white-90'
+            title='Discovery'>
+            <span className='ph2 truncate'>
+              <span role='img' aria-label='discovery'>🏠</span><span className='dn dib-l'>&nbsp;&nbsp;Discovery</span>
             </span>
           </NavLink>
 
           <NavLink to={`${process.env.PUBLIC_URL}/inbox`}
-            className='w-100 f5 white-70 b helvetica no-underline dib pv2 dim bb b--dark-gray'
-            activeClassName='bg-white-30 white-90'>
-            <span className='ph2'>
-              <span role='img' aria-label='inbox'>✉️</span>&nbsp;&nbsp;Inbox
+            className='w-100 f5 white-70 b helvetica no-underline dib pv2 dim bb b--dark-gray tc tl-l'
+            activeClassName='bg-white-30 white-90'
+            title='Inbox'>
+            <span className='ph2 truncate'>
+              <span role='img' aria-label='inbox'>✉️</span><span className='dn dib-l'>&nbsp;&nbsp;Inbox</span>
             </span>
           </NavLink>
 
-          <div className='w-100 f5 white-70 helvetica no-underline dib pv2 bb b--dark-gray'>
-            <div className='ph2 pb2 b'>
-              <span role='img' aria-label='communities'>🌐</span>&nbsp;&nbsp;Communities
+          <div className='w-100 f5 white-70 helvetica no-underline dib pv2 vh-75 tc tl-l'>
+            <div className='ph2 pb2 b truncate' title='Communities'>
+              <span role='img' aria-label='communities'>🌐</span><span className='dn dib-l'>&nbsp;&nbsp;Communities</span>
             </div>
 
             <GroupNavLinkList links={linksToRender} />
           </div>
         </nav>
 
-        <div className='w-100 f5 white-70 b helvetica no-underline dib pt2 pb4'>
+        {/* <div className='w-100 f5 white-70 b helvetica no-underline dib pt2 pb4 truncate'>
           <span className='ph2'>
             Private Messages
           </span>
-        </div>
+        </div> */}
       </div >
     )
   }
@@ -76,6 +78,7 @@ const GLOBAL_NAV_QUERY = gql`
       groups(first: 10) {
         edges {
           node {
+            avatar(width: 80, height: 80)
             displayName
             id:databaseId
           }

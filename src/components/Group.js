@@ -23,16 +23,16 @@ class Group extends Component {
     // 3
     return (
       <div className='dt w-100 h-100'>
-        <div className='w5 dtc v-top br b--light-gray'>
-          <div className='w5 fixed'>
-            <div className='pl3 pt5 pr3 bg-blue contain bg-top' style={group ? { backgroundImage: `url(${group.headerImage})`, backgroundColor: group.color, backgroundBlendMode: 'soft-light' } : {}}>
-              <h4 className='f4 white-90 helvetica'>{group ? group.displayName : <Skeleton count='2' />}</h4>
-              <div className='f6 white-80 helvetica pb4'>{group ? group.description : <Skeleton count='4' />}</div>
+        <div className='w4 w5-l dtc v-top br b--light-gray'>
+          <div className='w4 w5-l fixed overflow-hidden'>
+            <div className='pl3 pt4 pt5-l pr3 pb3 bg-blue bg-animate contain bg-top' style={group ? { backgroundImage: `url(${group.headerImage})`, backgroundColor: group.color, backgroundBlendMode: 'soft-light' } : {}}>
+              <h4 className='f4 white-90 helvetica ph2 overflow-hidden'>{group ? group.displayName : <Skeleton count='2' />}</h4>
+              <div className='f6 white-80 helvetica ph2 overflow-hidden dn db-l'>{group ? group.description : <Skeleton count='4' />}</div>
             </div>
 
-            <nav className='flex flex-column pt4'>
+            <nav className='flex flex-column pt2'>
               <Link to={`${process.env.PUBLIC_URL}/`}
-                className='w-100 f5 black-80 helvetica no-underline dib pl2 pv2 bg-light-blue'
+                className='w-100 f5 black-80 helvetica no-underline dib pl2 pv2 bg-light-blue bg-animate'
                 style={group ? { backgroundColor: group.color + "88" } : {}}>
                 <span className='ph2 helvetica'>
                   Conversations
@@ -40,7 +40,7 @@ class Group extends Component {
               </Link>
             </nav>
 
-            <nav className='flex flex-column pt3 bt b--light-gray mt4'>
+            <nav className='flex flex-wrap pt3 bt b--light-gray pl2 pr2 mt4'>
               <div className='w-100 f5 black-80 helvetica dib pa2'>
                 <span className='ph2 helvetica'>
                   Experts
@@ -59,7 +59,7 @@ class Group extends Component {
                 }
 
                 return (
-                  <div className='w-100 dib pl3 pr2'>
+                  <div className='w-auto w-100-l dib pl1 pr1'>
                     <UserCompactCard className='pv2'
                       user={user}
                       tagline={statusMessage} />

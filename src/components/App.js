@@ -37,7 +37,7 @@ class App extends Component {
     return (
       <div className='dt w-100 vh-100'>
         <div className='dt-row'>
-          <div className='dtc v-top h-100 w5 fl w5 pv2 white' style={{ backgroundColor: '#343A41' }}>
+          <div className='dtc v-top h-100 w5-l w3-m w3-ns w3 fl pv2 white' style={{ backgroundColor: '#343A41' }}>
             <GlobalNav />
           </div>
           <div className='dtc v-top h-100 w-100'>
