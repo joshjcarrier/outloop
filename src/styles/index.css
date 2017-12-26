@@ -1,47 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Verdana, Geneva, sans-serif;
-  /* min-width: 1200px; */
   overflow-x: hidden;
-}
-
-input {
-  max-width: 500px;
-}
-
-.gray {
-  color: #828282;
-}
-
-.orange {
-  background-color: #ff6600;
-}
-
-.background-gray {
-  background-color: rgb(246,246,239);
-}
-
-.f11 {
-  font-size: 11px;
-}
-
-.w85 {
-  width: 85%;
-}
-
-.button {
-  font-family: monospace;
-  font-size: 10pt;
-  color: black;
-  background-color: buttonface;
-  text-align: center;
-  padding: 2px 6px 3px;
-  border-width: 2px;
-  border-style: outset;
-  border-color: buttonface;
-  cursor: pointer;
-  max-width: 250px;
 }
 
 .h2_5 {
@@ -54,12 +14,6 @@ input {
 
 .bell{
   display:block;
-  /* 
-  width: 40px;
-  height: 40px;
-  font-size: 40px;
-  margin:50px auto 0;
-  color: #9e9e9e; */
   -webkit-animation: ring 4s .7s ease-in-out infinite;
   -webkit-transform-origin: 50% 4px;
   -moz-animation: ring 4s .7s ease-in-out infinite;

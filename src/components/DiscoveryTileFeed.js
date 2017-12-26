@@ -18,17 +18,19 @@ class DiscoveryTileFeed extends Component {
     return (
       <div className='flex flex-column w-100 mt4'>
         <nav className='nowrap overflow-x-auto bb b--light-gray'>
-          <a className="link dim black b f6 dib ttu pa2 ml5 bb bw2 b--blue" href="/" title="Home">Communities</a>
-          <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="Home">Departments</a>
-          <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="About">Projects</a>
+          <a className="link dim black b f6 helvetica dib ttu pa2 ml4 bb bw2 b--blue" href="/" title="Home">Communities</a>
+          <a className="link dim gray    f6 helvetica dib ttu pa2 ml4" href="/" title="Home">Departments</a>
+          <a className="link dim gray    f6 helvetica dib ttu pa2 ml4" href="/" title="About">Projects</a>
         </nav>
 
-        <h2 className='ml5 pt3'>Communities</h2>
+        <h2 className='ml4 pt3 helvetica'>Communities</h2>
 
-        <section className="pl5 w-100">
+        <section className="ph4 w-100">
           {threadEdges.map(threadEdge => (
-            <ThreadCompactCard thread={threadEdge.node}
-              includeGroupContext={true} />
+            <div className='fl w-100 w-third-l'>
+              <ThreadCompactCard thread={threadEdge.node}
+                includeGroupContext={true} />
+            </div>
           ))}
         </section>
       </div>

@@ -23,27 +23,31 @@ class GroupFeed extends Component {
     return (
       <div className='flex flex-column w-100'>
         <nav className='nowrap overflow-x-auto bb b--light-gray'>
-          <a className="link dim black b f6 dib ttu pa2 ml4 bb bw2 b--blue" href="/" title="New Conversations">New Conversations</a>
-          <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="All Conversations">All Conversations</a>
-          <a className="link dim gray    f6 dib ttu pa2 ml4" href="/" title="Files">Files</a>
+          <a className="link dim black b f6 helvetica dib ttu pa2 ml4 bb bw2 b--blue" href="/" title="New Conversations">New Conversations</a>
+          <a className="link dim gray    f6 helvetica dib ttu pa2 ml4" href="/" title="All Conversations">All Conversations</a>
+          <a className="link dim gray    f6 helvetica dib ttu pa2 ml4" href="/" title="Files">Files</a>
         </nav>
 
-        <input className="ml4 mt4 f6 f5-l input-reset fl black-80 bg-white bb b--solid bw1 b--light-gray pa3 lh-solid w-100 br2-ns br--left-ns" placeholder="Share something with this community" />
+        <input className="ml4 mt4 mr3 f6 f5-l input-reset fl black-80 bg-white bb b--solid bw1 b--light-gray pa3 lh-solid br2-ns br--left-ns" placeholder="Share something with this community" />
 
-        <h2 className='ml4 pt2'>Trending now</h2>
+        <h2 className='ml4 pt2 helvetica'>Trending now</h2>
 
         <section className="pl4 w-100">
           {allThreadEdges.map(threadEdge => (
-            <ThreadCompactCard thread={threadEdge.node} />
-          ))}
+            <div className='fl w-100 w-third-l'>
+              <ThreadCompactCard thread={threadEdge.node} />
+            </div>
+          )).reverse()}
         </section>
 
-        <h2 className='ml4 pt2'>New conversations</h2>
+        <h2 className='ml4 pt2 helvetica'>New conversations</h2>
 
         <section className="pl4 w-100">
-          {unseenThreadEdges.map(threadEdge => (
-            <ThreadCompactCard thread={threadEdge.node} />
-          ))}
+          {unseenThreadEdges.length > 0 ? unseenThreadEdges.map(threadEdge => (
+            <div className='fl w-100'>
+              <ThreadCompactCard thread={threadEdge.node} />
+            </div>
+          )).reverse() : <span className='helvetica'><span role='img' aria-label='good'>🎉</span>&nbsp;&nbsp;You're all caught up!</span>}
         </section>
       </div>
     )

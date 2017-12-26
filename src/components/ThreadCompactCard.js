@@ -13,7 +13,7 @@ class ThreadCompactCard extends Component {
     const humanReadableUpdatedAt = thread ? (<span title={hdate.prettyPrint(thread.updatedAt, { showTime: true })}>{hdate.relativeTime(thread.updatedAt)}</span>) : null;
 
     return (
-      <article className="fl w-100 w-50-m w-third-l h5">
+      <article className="fl w-100 h5">
 
         <div className='h-100 pr3 pb3 db'>
 
