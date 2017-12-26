@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 // import AllTileFeed from './AllTileFeed';
 import DiscoveryTileFeed from './DiscoveryTileFeed';
 import Group from './Group';
+import Inbox from './Inbox';
 import QueryString from 'query-string';
 
 class App extends Component {
@@ -43,6 +44,7 @@ class App extends Component {
           <div className='dtc v-top h-100 w-100'>
             <Switch>
               <Route exact path={`${process.env.PUBLIC_URL}/`} component={DiscoveryTileFeed} />
+              <Route path={`${process.env.PUBLIC_URL}/inbox`} component={Inbox} />
               <Route path={`${process.env.PUBLIC_URL}/group/:id`} component={Group} />
             </Switch>
           </div>

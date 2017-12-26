@@ -20,7 +20,7 @@ class ThreadCompactCard extends Component {
           <div className='h-100 flex flex-column pa3 ba b--light-gray br2'>
             <UserCompactCard className='pv2'
               user={thread ? thread.threadStarter.sender : null}
-              tagline={thread ? (includeGroupContext ? <span>in <Link to={`${process.env.PUBLIC_URL}/group/${thread.group.id}`}
+              tagline={thread ? (includeGroupContext && thread.group ? <span>in <Link to={`${process.env.PUBLIC_URL}/group/${thread.group.id}`}
                 className='black-80 helvetica no-underline dim'>
                 {thread.group.displayName}
               </Link>&nbsp;-&nbsp;{humanReadableUpdatedAt}</span> : (<span>{humanReadableUpdatedAt}</span>)) : <Skeleton />} />
