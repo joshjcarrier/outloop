@@ -70,10 +70,12 @@ const GLOBAL_NAV_QUERY = gql`
   # 2
   query OutloopGlobalNavQuery {
     viewer {
-      displayName
-      avatar(width: 80, height: 80)
-      network {
+      user {
         displayName
+        avatar(width: 80, height: 80)
+        network {
+          displayName
+        }
       }
       groups(first: 10) {
         edges {
